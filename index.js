@@ -18,11 +18,12 @@ module.exports = class SnowflakeInfo extends Plugin {
       return bin;
     }
 
-    this.registerCommand(
-      'snowflake',
-      [],
-      'Lets you see the creation date of a snowflake.',
-      '{c} <snowflake>', async (args) => {
+    powercord.api.commands.registerCommand({
+      command: 'snowflake',
+      aliases: [],
+      description: 'Lets you see the creation date of a snowflake.',
+      usage: '{c} <snowflake>', 
+	  executor: async (args) => {
         if(args.length < 1) {
           return {
             send: false,
@@ -56,6 +57,9 @@ module.exports = class SnowflakeInfo extends Plugin {
 
         };
       }
-    )
+    })
   }
-};
+  	pluginWillUnload () {
+	  powercord.api.commands.unregisterCommand('snowflake')
+	}
+}
